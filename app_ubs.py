@@ -14,7 +14,7 @@ with st.container():
     col3,col4,col5 = st.columns([.5,1.5,.5])
     with col4:
         st.markdown("""
-<h5 style='text-align: center; color:#ffffff;font-family:Segoe UI,sans-serif; background-color: #578CA9;'>Projeto desenvolvido para o <br>III Encontro de Ciência de Dados das Fatecs</h5>
+<h5 style='text-align: center; color:#ffffff;font-family:Segoe UI,sans-serif; background-color: #578CA9;'>Projeto USB MED<br>Economia da Informação, Inovação e Negócios Disruptivos<br>Fatec Cotia</h5>
 """, unsafe_allow_html=True)
 
 st.markdown("""
