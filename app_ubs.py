@@ -19,9 +19,9 @@ with st.container():
 
 st.markdown("""
 <br>
-<h1 style='text-align: center; color:#202020;font-family:helvetica'>Agregador de pesquisas eleitorais por<br>gênero e raça</br></h1>
+<h1 style='text-align: center; color:#202020;font-family:helvetica'>UBSMed</br></h1>
 <br>
-<h4 style='text-align: center; color:#54595F;font-family:Segoe UI, sans-serif'>Consolidação de pesquisas para as eleições presidenciais de 2022</h4>
+<h4 style='text-align: center; color:#54595F;font-family:Segoe UI, sans-serif'>Consolidação de estoques de medicamentos das UBSs</h4>
 """, unsafe_allow_html=True)
 st.markdown("---")
 
