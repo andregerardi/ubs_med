@@ -9,6 +9,32 @@ import pandas as pd
 import folium
 import streamlit as st
 
+# abertura
+with st.container():
+    col3,col4,col5 = st.columns([.5,1.5,.5])
+    with col4:
+        st.markdown("""
+<h5 style='text-align: center; color:#ffffff;font-family:Segoe UI,sans-serif; background-color: #578CA9;'>Projeto desenvolvido para o <br>III Encontro de Ciência de Dados das Fatecs</h5>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<br>
+<h1 style='text-align: center; color:#202020;font-family:helvetica'>Agregador de pesquisas eleitorais por<br>gênero e raça</br></h1>
+<br>
+<h4 style='text-align: center; color:#54595F;font-family:Segoe UI, sans-serif'>Consolidação de pesquisas para as eleições presidenciais de 2022</h4>
+""", unsafe_allow_html=True)
+st.markdown("---")
+
+##retira o made streamlit no fim da página##
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 # Função para converter CEP
 def converter_cep(cep):
     link = f'http://viacep.com.br/ws/{cep}/json/'
