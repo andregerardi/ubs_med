@@ -1,9 +1,8 @@
 pip==23.3.1
-'/home/adminuser/venv/bin/python -m pip install --upgrade pip geopy folium streamlit
-geopy
+geopy==2.2.0
+folium==0.12.1
 requests
 os
 pandas
-folium
 streamlit
 
