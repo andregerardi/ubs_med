@@ -27,7 +27,7 @@ st.markdown("""
     <h1 style='text-align: center; color:#202020;font-family:helvetica'>UBSMed</br></h1>
     <br>
     <h4 style='text-align: center; color:#54595F;font-family:Segoe UI, sans-serif'>
-    Consolidação de estoques de medicamentos das UBSs
+    Consolidação de estoques de medicamentos de UBSs
     </h4>
 """, unsafe_allow_html=True)
 st.markdown("---")
@@ -89,7 +89,7 @@ def buscar_informacao_em_csv(informacao_desejada, cep):
 
 # Função para criar mapa com marcadores
 def criar_mapa(end_client, end_ubs, dados_med_ubs):
-    mapa = folium.Map(location=end_client, zoom_start=12)
+    mapa = folium.Map(location=end_client, zoom_start=13)
 
     folium.Marker(location=end_client, popup='Minha Localização').add_to(mapa)
 
@@ -105,7 +105,6 @@ def criar_mapa(end_client, end_ubs, dados_med_ubs):
     return temp_mapa_path
 
 # Interface do Streamlit
-st.title("")
 cep_input = st.text_input('Insira o CEP:')
 medicamento_input = st.text_input('Nome do Medicamento:')
 buscar_button = st.button('Buscar')
