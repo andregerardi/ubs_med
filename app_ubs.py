@@ -1,5 +1,6 @@
 # Instalação
-#!pip install geopy folium streamlit
+import subprocess
+subprocess.run(["pip", "install", "geopy", "folium"])
 
 # Bibliotecas
 from geopy.geocoders import Nominatim
@@ -8,31 +9,37 @@ import os
 import pandas as pd
 import folium
 import streamlit as st
+import base64
+
 
 # abertura
 with st.container():
-    col3,col4,col5 = st.columns([.5,1.5,.5])
+    col3, col4, col5 = st.columns([.5, 1.5, .5])
     with col4:
         st.markdown("""
-<h5 style='text-align: center; color:#ffffff;font-family:Segoe UI,sans-serif; background-color: #578CA9;'>Projeto USB MED<br>Economia da Informação, Inovação e Negócios Disruptivos<br>Fatec Cotia</h5>
-""", unsafe_allow_html=True)
+            <h5 style='text-align: center; color:#ffffff;font-family:Segoe UI,sans-serif; background-color: #578CA9;'>
+            Projeto desenvolvido para a disciplina:<br>Economia da Informação, Inovação e Negócios Disruptivos<br>Fatec Cotia
+            </h5>
+        """, unsafe_allow_html=True)
 
 st.markdown("""
-<br>
-<h1 style='text-align: center; color:#202020;font-family:helvetica'>UBSMed</br></h1>
-<br>
-<h4 style='text-align: center; color:#54595F;font-family:Segoe UI, sans-serif'>Consolidação de estoques de medicamentos das UBSs</h4>
+    <br>
+    <h1 style='text-align: center; color:#202020;font-family:helvetica'>UBSMed</br></h1>
+    <br>
+    <h4 style='text-align: center; color:#54595F;font-family:Segoe UI, sans-serif'>
+    Consolidação de estoques de medicamentos das UBSs
+    </h4>
 """, unsafe_allow_html=True)
 st.markdown("---")
 
 ##retira o made streamlit no fim da página##
 hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        </style>
+        """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # Função para converter CEP
@@ -82,25 +89,29 @@ def buscar_informacao_em_csv(informacao_desejada, cep):
 
 # Função para criar mapa com marcadores
 def criar_mapa(end_client, end_ubs, dados_med_ubs):
-    mapa = folium.Map(location=end_client, zoom_start=15)
+    mapa = folium.Map(location=end_client, zoom_start=12)
 
     folium.Marker(location=end_client, popup='Minha Localização').add_to(mapa)
 
     for i in range(0, len(end_ubs)):
         remedio = converter_cep(end_ubs[i][0])
-        rotulo_ubs = f"{list(dados_med_ubs[i]['Nome'])}\nEstoque: {list(dados_med_ubs[i]['Quantidade em Estoque'])}"
+        rotulo_ubs = f"{list(dados_med_ubs[i]['Nome'])}\nEstoque:{list(dados_med_ubs[i]['Quantidade em Estoque'])}"
         folium.Marker(location=remedio, popup=rotulo_ubs, icon=folium.Icon(color='purple')).add_to(mapa)
 
-    return mapa
+    # Salvando o mapa em um arquivo HTML temporário
+    temp_mapa_path = "temp_mapa.html"
+    mapa.save(temp_mapa_path)
+
+    return temp_mapa_path
 
 # Interface do Streamlit
-st.title("Busca de Medicamentos e Farmácias Próximas")
+st.title("")
 cep_input = st.text_input('Insira o CEP:')
 medicamento_input = st.text_input('Nome do Medicamento:')
-st.button('Buscar')
+buscar_button = st.button('Buscar')
 
 # Processamento dos dados e exibição do mapa
-if cep_input and medicamento_input:
+if cep_input and medicamento_input and buscar_button:
     cep_input = cep_input.replace(" ", "").replace("-", "")
     medicamento_input = medicamento_input.upper()
 
@@ -109,9 +120,18 @@ if cep_input and medicamento_input:
         end_ubs = buscar_informacao_em_csv(medicamento_input, cep_input)
         
         if end_ubs:
-            mapa = criar_mapa(end_client, end_ubs, dados_med_ubs)
-            st.write(mapa._repr_html_(), unsafe_allow_html=True)
+            temp_mapa_path = criar_mapa(end_client, end_ubs, dados_med_ubs)
+
+            # Exibindo o mapa no Streamlit usando HTML
+            st.components.v1.html(
+                f'<iframe width="100%" height="500" src="data:text/html;base64,{base64.b64encode(open(temp_mapa_path, "r").read().encode()).decode()}"></iframe>',
+                height=600,
+            )
+            
         else:
             st.warning("Medicamento não encontrado em nenhuma farmácia próxima.")
     else:
         st.error('CEP inválido. Insira exatamente 8 caracteres numéricos')
+
+
+
