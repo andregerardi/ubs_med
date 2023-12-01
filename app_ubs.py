@@ -1,6 +1,6 @@
 # Instalação
 import subprocess
-subprocess.run(["pip", "install", "--upgrade", "geopy", "folium"])
+subprocess.run(["pip", "install", "--upgrade", "geopy", "folium", "base64"])
 
 # Bibliotecas
 from geopy.geocoders import Nominatim
