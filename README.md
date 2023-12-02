@@ -13,4 +13,4 @@ O repositório contém planilhas, um algorítimo do aplicativo e outras dependen
 Clique e acesse o [UBSInfoMed](https://ubsmed-d896khccjfndr8ccpgw2bu.streamlit.app/)
 
 Sugerimos usar um CEP da cidade de Cotia/SP ou 06704230;
-Para o medicmamento sugerimos "prednisona".
+Para o medicamento sugerimos "prednisona".
